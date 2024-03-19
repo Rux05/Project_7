@@ -80,6 +80,7 @@ async function displayCategories() {
 		button.textContent = category.name
 		button.setAttribute("data-category", category.id)
 		filters.appendChild(button)
+		button.classList.add("filter-button"); //add class filter-button to each button created in js
 		button.addEventListener("click", function(event) {
 			console.log(event)
 			filterByCategory(event.target.getAttribute("data-category"))
@@ -104,3 +105,16 @@ async function filterByCategory(eventId) {
 		}
 	}
 }
+
+// const button = document.querySelector(".filters");
+// button.classList.add("filter-button");
+// console.log(button)
+
+// const buttons = document.querySelector(".filters");
+// buttons.forEach(function(button) {
+// 	button.classList.add("filter-button");
+//   });
+// console.log(button)
+
+
+
