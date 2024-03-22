@@ -193,4 +193,14 @@ footer nav ul {
 	margin: 2em
 }
 
+a {
+    text-decoration: none; 
+    color: inherit; 
+}
+
+a:focus,
+a:active {
+    font-weight: bold;  /* !!!!! doesn't work */
+}
+
 

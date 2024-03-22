@@ -98,6 +98,12 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
+
+nav ul li a:focus {
+    font-weight: bold;  /* !!!!! doesn't work */
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -235,3 +241,10 @@ footer nav ul {
 .hidden {
 	display: none;
 }
+
+a {
+    text-decoration: none; 
+    color: inherit; 
+}
+
+
