@@ -221,7 +221,8 @@ margin: auto;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+input[type="submit"],
+button {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -269,3 +270,73 @@ a {
 	padding: 20px;
 }
 
+
+.js-modal-close {
+
+}
+
+.projets-mode-edition {
+	text-align: center;
+	justify-self: center;
+	margin-bottom: 1em;
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 30px;
+	color: #1D6154
+}
+
+.admin-bar {
+	display: flex;
+	/* align-items: center; */
+	justify-content: center;
+	background-color: black;
+	/* padding: 10px; */
+}
+
+.p-mode-edition {
+	text-align: center;
+	margin-bottom: 1em;
+	font-family: 'Syne';
+	/* font-weight: 400; */
+	font-size: 10px;
+	color: white;
+	padding: 10px;
+}
+
+#admin-bar .fa-regular,
+.fa-pen-to-square {
+	color: white;
+	padding: 10px;
+}
+
+#portfolio .fa-regular,
+.fa-pen-to-square {
+	color: black;
+	padding: 10px 5px 10px 10px;
+}
+
+#portfolio .p-mode-edition {
+	align-content: flex-start;
+	justify-content: center;
+	/* margin-bottom: 1em; */
+	font-family: 'Syne';
+	/* font-weight: 400; */
+	font-size: 10px;
+	color: black;
+	padding-left: 5px;
+	margin: 0px;
+	
+}
+
+.portfolio {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	/* align-items: center; */
+	padding: 10px;
+	flex-direction: row;
+}
+
+#title-modal h1 {
+	color: #1D6154
+}
