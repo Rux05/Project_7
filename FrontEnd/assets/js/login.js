@@ -27,7 +27,7 @@ let errorMsgEmail = document.querySelector('.error-msg-email')
 let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 let authenticationError = document.querySelector('.authentication-error')
 let errorMsgPassword = document.querySelector('.error-msg-password')
-let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/
+let passwordRegex = /^(?=.*[a-z0-9])(?=.*[A-Z0-9])(?=.*\d).{6,}$/
 
 // let adminEmail = "admin@sophiebluel.com";
 // let adminPassword = "adminpass";

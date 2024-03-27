@@ -1,27 +1,49 @@
 let token = localStorage.getItem('token')
 let adminBar = document.getElementById('admin-bar')
-let modal = null
-let portfolio = document.getElementById('portfolio')
+let modal = document.getElementById('modal')
+let galleryEdit = document.getElementById('gallery-edit')
+let logoutLink = document.getElementById('logout-link')
+let modalClose = document.querySelector('.js-modal-close')
+
+function modeEdition(e) {
+    e.preventDefault()
+    modal.classList.toggle('hidden')
+    console.log('modalOuvert')
+    // const target = document.querySelector(e.target.getAttribute('href'))
+    // target.style.display = null
+    // target.removeAttribute('aria-hidden')
+    // target.setAttribute('aria-modal', 'true')
+    // modal = target
+    // modal.addEventListener('click', closeModal)
+    // modal.querySelector('js-modal-close').addEventListener('click', closeModal)
+    // modal.querySelector('js-modal-stop').addEventListener('click', stopPropagation)
+}
 
 if (token) {
     adminBar.innerHTML = `<i class="fa-regular fa-pen-to-square"></i><p class="p-mode-edition">Mode edition</p>`
-    portfolio.innerHTML = `<p class="projets-mode-edition">Mes projets</p><i class="fa-regular fa-pen-to-square"></i><a href="#modal" class="p-mode-edition">modifier</a>`
+    galleryEdit.innerHTML = `<i class="fa-regular fa-pen-to-square"></i><p class="gallery-mode-edition">modifier</p>`
+    // portfolio.innerHTML = `<p class="projets-mode-edition">Mes projets</p><i class="fa-regular fa-pen-to-square"></i><p id="#modal" class="p-mode-edition">modifier</p>`
+    logoutLink.innerHTML = `<a href="#" id="logout">logout</a>`
+    let logout = document.getElementById('logout')
+    logout.addEventListener('click', function(event) {
+        localStorage.removeItem('token')
+        window.location.reload()
+    })
+    filters.style.display = 'none'
+    document.querySelector('.gallery-mode-edition').addEventListener('click', function(event) {
+        modeEdition(event)
+    })
+    modalClose.addEventListener('click', function(event) {
+        modal.classList.toggle('hidden')
+    })
+}
+
+async function displayModalprojects() {
+    await fetchProjects()
+    
 }
 
 
-const modeEdition = function(e) {
-    e.preventDefault()
-    const target = document.querySelector(e.target.getAttribute('href'))
-    target.style.display = null
-    target.removeAttribute('aria-hidden')
-    target.setAttribute('aria-modal', 'true')
-    modal = target
-    modal.addEventListener('click', closeModal)
-    modal.querySelector('js-modal-close').addEventListener('click', closeModal)
-    modal.querySelector('js-modal-stop').addEventListener('click', stopPropagation)
-}
-
-document.querySelector('.p-mode-edition').addEventListener('click', modeEdition)
 
 // modeEdition()
 

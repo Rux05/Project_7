@@ -19,7 +19,7 @@
 		<ul>
 			<li><a href="#portfolio">projets</a></li>
 			<li><a href="#contact">contact</a></li>
-			<li><a href="login.html">login</a></li>
+			<li id="logout-link"><a href="login.html">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -37,14 +37,9 @@
 		</article>
 	</section>
 	<section id="portfolio" class="portfolio">
+		<div></div>
 		<h2>Mes Projets</h2>
-		<aside id="modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="">
-			<div class="modal-wrapper js-modal-stop">
-				<button class="js-modal-close">x</button>
-				<h1 id="title-modal">Galerie photo</h1>
-				<button id="addPhotoButton"><a href="">Ajouter une photo</a></button>
-			</div>
-		</aside>
+		<div id="gallery-edit"></div>
 		<div class="filters"></div>
 		<div class="gallery">
 			<!-- <figure>
@@ -115,6 +110,20 @@
 		</ul>
 	</nav>
 </footer>
+<aside id="modal" class="modal hidden" aria-hidden="true" role="dialog" aria-labelledby="">
+	<div class="overlay"></div>
+	<div class="modal-wrapper js-modal-stop">
+		<div class="part-one">
+			<button class="js-modal-close">x</button>
+			<h1 id="title-modal">Galerie photo</h1>
+			<div class="modal-gallery"></div>
+			<button id="addPhotoButton"><a href="">Ajouter une photo</a></button>
+		</div>
+		<div class="part-two hidden">
+
+		</div>
+	</div>
+</aside>
 <script src="./assets/js/script.js"></script>
 <script src="./assets/js/admin.js"></script>
 </body>
