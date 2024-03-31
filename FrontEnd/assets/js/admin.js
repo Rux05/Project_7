@@ -4,6 +4,7 @@ let modal = document.getElementById('modal')
 let galleryEdit = document.getElementById('gallery-edit')
 let logoutLink = document.getElementById('logout-link')
 let modalClose = document.querySelector('.js-modal-close')
+const modalGalleryPhoto = document.getElementById("title-modal")
 
 function modeEdition(e) {
     e.preventDefault()
@@ -38,10 +39,21 @@ if (token) {
     })
 }
 
-async function displayModalprojects() {
+async function displayModalProjects() {
     await fetchProjects()
-    
-}
+    for(let work of works) {
+		console.log(work)
+		let figure = document.createElement("figure")
+		figure.setAttribute("data-category", work.categoryId)
+		const imageElement = document.createElement("img");
+		imageElement.src = work.imageUrl;
+		figure.appendChild(imageElement)
+		modalGalleryPhoto.appendChild(figure)
+        modalGalleryPhoto.classList.toggle('modal-gallery')
+	}	
+}	
+displayModalProjects()   
+
 
 
 
