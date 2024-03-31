@@ -285,8 +285,8 @@ a {
 .js-modal-close {
 	/* display: flex; */
 	position: absolute; 
-    top: 20px; 
-    right: 20px; 
+    /* top: 100px; 
+    right: 100px;  */
     width: 20px; 
     height: 20px; 
     font-size: 16px; 
@@ -298,6 +298,10 @@ a {
     padding: 0;
 }
 
+
+.title-modal {
+	align-content: center;
+}
 
 .projets-mode-edition {
 	text-align: center;
