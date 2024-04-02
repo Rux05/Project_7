@@ -89,7 +89,7 @@
     flex-direction: column;
     /*cette position relative permets de garder l'absolute de la croix de fermeture dans la modale et non en dehors*/
     position: relative;
-    /* overflow: auto;  scroll appears  */
+    overflow: auto;  /*scroll appears */
     width: 400px;
     /*Pas de hauteur pour éviter les surprises avec les débords*/
     /*height: 400px;*/
@@ -137,8 +137,17 @@
     width: auto;
     margin: 0 auto;
     display: block;
+    color: white;
+    background-color: #1D6154;
 }
 /*styles modale part one*/
+
+.part-one {
+    display: flex;
+    flex-direction: column;
+    /* width: 10px; */
+}
+
 #gallery-edit {
     display: flex;
     justify-content: center;
@@ -163,14 +172,16 @@
     /* grid-template-columns: repeat(5, 1fr) */
     grid-column-gap: 5px;
     grid-row-gap: 5px;
+    /* overflow: auto; */
 }
 
 
-.modal-gallery img {
+img {
+    width: 20%;
     max-width: 100%;
-    max-height: 100%;
-    min-width: 10px;
-    min-height: 10px;
+    max-height: auto;
+    min-width: 20%;
+    min-height: auto;
 }
 
 /*a garder à la fin pour cacher les éléments*/

@@ -25,6 +25,13 @@ function modeEdition(e) {
     // modal.querySelector('js-modal-stop').addEventListener('click', stopPropagation)
 }
 
+function modalPartTwo(e) {
+    e.preventDefault()
+    modal.classList.toggle('hidden')
+    document.body.classList.toggle('modal-open')
+    console.log('modalOuvert')
+}
+
 if (token) {
     adminBar.innerHTML = `<i class="fa-regular fa-pen-to-square"></i><p class="p-mode-edition">Mode edition</p>`
     galleryEdit.innerHTML = `<i class="fa-regular fa-pen-to-square"></i><p class="gallery-mode-edition">modifier</p>`
@@ -43,6 +50,9 @@ if (token) {
     // document.querySelector('.gallery-mode-edition').addEventListener('click', function(event) {
     //     modeEdition(event)
     // })
+    document.querySelector('#addPhotoButton').addEventListener('click', function(event) {
+        modalPartTwo(event)
+    })
     modalClose.addEventListener('click', function(event) {
         modal.classList.toggle('hidden')
     })
