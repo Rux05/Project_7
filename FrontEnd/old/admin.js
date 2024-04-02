@@ -4,16 +4,11 @@ let modal = document.getElementById('modal')
 let galleryEdit = document.getElementById('gallery-edit')
 let logoutLink = document.getElementById('logout-link')
 let modalClose = document.querySelector('.js-modal-close')
-//c'est au mauvais endroit. Tu récupérais le titre et non la galerie
-// const modalGalleryPhoto = document.getElementById("title-modal")
-//il faut le mettre dans la galerie en récupérant la classe que tu as mise. En récupérant par la classe, tu auras un tableau. Il faut donc aller chercher le premier élément
-const modalGalleryPhoto = document.getElementsByClassName("modal-gallery")[0]
-
+const modalGalleryPhoto = document.getElementById("title-modal")
 
 function modeEdition(e) {
     e.preventDefault()
     modal.classList.toggle('hidden')
-    document.body.classList.toggle('modal-open')
     console.log('modalOuvert')
     // const target = document.querySelector(e.target.getAttribute('href'))
     // target.style.display = null
@@ -36,13 +31,9 @@ if (token) {
         window.location.reload()
     })
     filters.style.display = 'none'
-    //il vaut mieux le faire sur "gallery-adit" pour rendre l'ensemble cliquable
-    document.querySelector('#gallery-edit').addEventListener('click', function(event) {
+    document.querySelector('.gallery-mode-edition').addEventListener('click', function(event) {
         modeEdition(event)
     })
-    // document.querySelector('.gallery-mode-edition').addEventListener('click', function(event) {
-    //     modeEdition(event)
-    // })
     modalClose.addEventListener('click', function(event) {
         modal.classList.toggle('hidden')
     })
