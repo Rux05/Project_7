@@ -27,9 +27,12 @@ function modeEdition(e) {
 
 function modalPartTwo(e) {
     e.preventDefault()
-    modal.classList.toggle('hidden')
+    const modalPartOne = document.querySelector('.part-one');
+    modalPartOne.classList.add('hidden');
+    const modalPartTwo = document.querySelector('.part-two');
+    modalPartTwo.classList.remove('hidden');
     document.body.classList.toggle('modal-open')
-    console.log('modalOuvert')
+    console.log('modalOuvertPartTwo')
 }
 
 if (token) {
@@ -55,6 +58,12 @@ if (token) {
     })
     modalClose.addEventListener('click', function(event) {
         modal.classList.toggle('hidden')
+    })
+    modalClose.addEventListener('click', function(event) {
+        modalPartTwo.classList.toggle('hidden')
+    })
+    document.querySelector('.fa-arrow-left').addEventListener('click', function(event) {
+        modeEdition(event)
     })
 }
 

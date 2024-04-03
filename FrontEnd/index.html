@@ -125,6 +125,29 @@
 			</button>
 		</div>
 		<div class="part-two hidden">
+			<button class="js-modal-close">x</button>
+			<i class="fa-solid fa-arrow-left"></i>
+			<h3 id="title-modal">Ajout photo</h3>
+			<div class="modal2-add-photo">
+				<i class="fa-solid fa-mountain-sun"></i>
+				<button id="addPhotoButton2">
+					+ Ajouter photo
+				</button>
+				<p>jpeg, png : 4mo max</p>
+			</div>
+			<div class="modal2-form">
+				<form action="#" method="post">
+					<label for="title">Titre</label>
+					<input type="text" name="name" id="name">
+					<label for="category">Catégorie</label>
+					<select name="category" id="category">
+						<option value="objets">Objets</option>
+						<option value="appartements">Appartements</option>
+						<option value="hotels-restaurants">Hotels & restaurants</option>
+					</select>
+					<input type="submit" value="Valider">
+				</form>
+			</div>
 		</div>
 	</div>
 </aside>
