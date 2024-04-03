@@ -8,6 +8,8 @@ let modalClose = document.querySelector('.js-modal-close')
 // const modalGalleryPhoto = document.getElementById("title-modal")
 //il faut le mettre dans la galerie en récupérant la classe que tu as mise. En récupérant par la classe, tu auras un tableau. Il faut donc aller chercher le premier élément
 const modalGalleryPhoto = document.getElementsByClassName("modal-gallery")[0]
+const modalPartOne = document.querySelector('.part-one');
+const modalPartTwo = document.querySelector('.part-two');
 
 
 function modeEdition(e) {
@@ -25,15 +27,15 @@ function modeEdition(e) {
     // modal.querySelector('js-modal-stop').addEventListener('click', stopPropagation)
 }
 
-function modalPartTwo(e) {
-    e.preventDefault()
-    const modalPartOne = document.querySelector('.part-one');
-    modalPartOne.classList.add('hidden');
-    const modalPartTwo = document.querySelector('.part-two');
-    modalPartTwo.classList.remove('hidden');
-    document.body.classList.toggle('modal-open')
-    console.log('modalOuvertPartTwo')
-}
+// function modalPartTwo(e) {
+//     e.preventDefault()
+//     const modalPartOne = document.querySelector('.part-one');
+//     modalPartOne.classList.add('hidden');
+//     const modalPartTwo = document.querySelector('.part-two');
+//     modalPartTwo.classList.remove('hidden');
+//     document.body.classList.toggle('modal-open')
+//     console.log('modalOuvertPartTwo')
+// }
 
 if (token) {
     adminBar.innerHTML = `<i class="fa-regular fa-pen-to-square"></i><p class="p-mode-edition">Mode edition</p>`
@@ -54,16 +56,20 @@ if (token) {
     //     modeEdition(event)
     // })
     document.querySelector('#addPhotoButton').addEventListener('click', function(event) {
-        modalPartTwo(event)
+        // modalPartTwo(event)
+        modalPartOne.classList.toggle('hidden')
+        modalPartTwo.classList.toggle('hidden')
     })
     modalClose.addEventListener('click', function(event) {
         modal.classList.toggle('hidden')
     })
-    modalClose.addEventListener('click', function(event) {
-        modalPartTwo.classList.toggle('hidden')
-    })
+    // modalClose.addEventListener('click', function(event) {
+    //     modalPartTwo.classList.toggle('hidden')
+    // })
     document.querySelector('.fa-arrow-left').addEventListener('click', function(event) {
-        modeEdition(event)
+        // modeEdition(event)
+        modalPartOne.classList.toggle('hidden')
+        modalPartTwo.classList.toggle('hidden')
     })
 }
 
@@ -75,14 +81,21 @@ async function displayModalProjects() {
 		figure.setAttribute("data-category", work.categoryId)
 		const imageElement = document.createElement("img");
 		imageElement.src = work.imageUrl;
+        let icone = document.createElement("i")
+        icone.classList.add('fa-solid','fa-trash-can')
+        icone.addEventListener('click', function(event) {
+            deleteProject(work.id)
+        })
 		figure.appendChild(imageElement)
+        figure.appendChild(icone)
 		modalGalleryPhoto.appendChild(figure)
-        modalGalleryPhoto.classList.toggle('modal-gallery')
 	}	
 }	
 displayModalProjects()   
 
-
+async function deleteProject(workId) {
+    console.log(workId)
+}
 
 
 // modeEdition()
@@ -113,6 +126,16 @@ window.addEventListener('keydown', function(e) {
         closeModal(e)
     }
 })
+
+async function selectCategory() {
+    await fetchCategories()
+    console.log(categories)
+    let select = document.getElementById('select-category')
+    for(let category of categories) {
+        select.innerHTML += `<option value="${category.id}">${category.name}</option>`
+    }
+}
+selectCategory()
 
 // let modal = document.getElementById('modal')
 
