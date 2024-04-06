@@ -81,13 +81,13 @@ async function displayModalProjects() {
 		figure.setAttribute("data-category", work.categoryId)
 		const imageElement = document.createElement("img");
 		imageElement.src = work.imageUrl;
-        let icone = document.createElement("i")
-        icone.classList.add('fa-solid','fa-trash-can')
-        icone.addEventListener('click', function(event) {
+        let icon = document.createElement("i")
+        icon.classList.add('fa-solid','fa-trash-can')
+        icon.addEventListener('click', function(event) {
             deleteProject(work.id)
         })
 		figure.appendChild(imageElement)
-        figure.appendChild(icone)
+        figure.appendChild(icon)
 		modalGalleryPhoto.appendChild(figure)
 	}	
 }	

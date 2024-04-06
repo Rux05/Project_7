@@ -101,6 +101,7 @@
     padding: 30px;
     align-items: center;
     justify-content: space-between;
+    padding: 50px 65px;
 }
 
 .js-modal-close {
@@ -140,6 +141,12 @@
     color: white;
     background-color: #1D6154;
 }
+
+.linestyle {
+    border-top: 1px solid lightblue;
+    padding-bottom: 40px;
+}
+
 /*styles modale part one*/
 
 .part-one {
@@ -172,6 +179,7 @@
     /* grid-template-columns: repeat(5, 1fr) */
     grid-column-gap: 5px;
     grid-row-gap: 5px;
+    margin-bottom: 45px;
     /* overflow: auto; */
 }
 
@@ -179,6 +187,20 @@
 .modal-gallery img {
     max-width: 100%;
     max-height: auto;
+}
+
+.fa-trash-can {
+    position: absolute;
+    top: 7px;
+    right: 4px;
+    color: white;
+    padding: 5px;
+    background-color: black;
+    font-size: 10px;
+}
+
+figure {
+    position: relative;
 }
 
 /*styles modale part two*/
