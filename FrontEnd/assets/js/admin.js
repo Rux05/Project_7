@@ -71,9 +71,16 @@ if (token) {
         modalPartOne.classList.toggle('hidden')
         modalPartTwo.classList.toggle('hidden')
     })
+    document.querySelector('#addPhotoButton2').addEventListener('click', function(event) {
+        window.open('./assets/images', '_blank')
+        addImages();
+    })
 }
 
+
+
 async function displayModalProjects() {
+    modalGalleryPhoto.innerHTML = '';  // Curăță conținutul existent din containerul de proiecte
     await fetchProjects()
     for(let work of works) {
 		console.log(work)
@@ -93,9 +100,52 @@ async function displayModalProjects() {
 }	
 displayModalProjects()   
 
+
+
 async function deleteProject(workId) {
     console.log(workId)
+    try{
+        await fetch(`http://localhost:5678/api/works/${workId}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        const projectToDelete = document.querySelector(`.modal-gallery figure[data-category="${workId}"]`);
+                        if (projectToDelete) {
+                            projectToDelete.remove();
+                            console.log("Item deleted")
+                        }
+                        displayModalProjects()
+                    } else {
+                        throw new Error("Unauthorized")
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error in deleting project', error);
+                });
+    } catch (error) {
+        console.error('Error in deleting project', error);
+    }
 }
+
+function addImages() {
+    const ImagesInFolder = window.open('./assets/images', '_blank')
+    imagesInFolder.forEach(image => {
+        image.addEventListener('click', function(event) {
+            const title = image.title
+            const categoryId = image.category.id
+            document.querySelector('#uploadForm input[name="title"]').value = title;
+            document.querySelector('#uploadForm select[name="category"]').value = categoryId;
+        });
+    });
+}
+
+
+
 
 
 // modeEdition()
