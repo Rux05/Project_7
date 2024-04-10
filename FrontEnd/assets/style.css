@@ -246,16 +246,20 @@ footer nav ul {
 	margin: 2em
 }
 
-
-
 a {
     text-decoration: none; 
     color: inherit; 
 }
 
 #portfolio .projets-bar {
+	display: flex;
 	flex-direction: column;
 }
+
+/* #portfolio .logged-in .projets-bar {
+	display: flex;
+	flex-direction: row;
+} */
 
 .projets-bar .filters {
     margin-top: 20px; 

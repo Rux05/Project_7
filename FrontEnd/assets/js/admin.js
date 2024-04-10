@@ -41,6 +41,7 @@ if (token) {
     adminBar.innerHTML = `<i class="fa-regular fa-pen-to-square"></i><p class="p-mode-edition">Mode edition</p>`
     galleryEdit.innerHTML = `<i class="fa-regular fa-pen-to-square"></i><p class="gallery-mode-edition">modifier</p>`
     // portfolio.innerHTML = `<p class="projets-mode-edition">Mes projets</p><i class="fa-regular fa-pen-to-square"></i><p id="#modal" class="p-mode-edition">modifier</p>`
+    // document.body.classList.add("logged-in")
     logoutLink.innerHTML = `<a href="#" id="logout">logout</a>`
     let logout = document.getElementById('logout')
     logout.addEventListener('click', function(event) {
@@ -71,10 +72,10 @@ if (token) {
         modalPartOne.classList.toggle('hidden')
         modalPartTwo.classList.toggle('hidden')
     })
-    document.querySelector('#addPhotoButton2').addEventListener('click', function(event) {
-        window.open('./assets/images', '_blank')
-        addImages();
-    })
+    // document.querySelector('#addPhotoButton2').addEventListener('click', function(event) {
+    //     window.open('./assets/images', '_blank')
+    //     addImages();
+    // })
 }
 
 

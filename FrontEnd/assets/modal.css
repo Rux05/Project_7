@@ -142,9 +142,11 @@
     background-color: #1D6154;
 }
 
-.linestyle {
+hr {
+    border: none;
     border-top: 1px solid lightblue;
-    padding-bottom: 40px;
+    margin: 40px 0;
+    /* padding-bottom: 40px; */
 }
 
 /*styles modale part one*/
@@ -243,6 +245,14 @@ figure {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
+}
+
+#title-modal-deux {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 2%;
+    margin-bottom: 8%;
 }
 
 .modal2-add-photo {
@@ -251,8 +261,8 @@ figure {
     align-items: center; 
     background-color: #E8F1F6;
     padding: 15px 0px;
-    width: 90%;
-    margin: 0;
+    width: 100%;
+    margin: 0 0 20px 0;
     /* justify-content: center;
     text-align: center; */
 }
@@ -262,10 +272,11 @@ figure {
     /* align-items: center; */
     /* justify-content: center; */
     align-self: center;
-    width: 30px;
-    height: 30px;
+    /* width: 30px; */
+    height: 29px;
+    font-size: 30px;
     text-align: center;
-    line-height: 2;
+    /* line-height: 2; */
     /* justify-self: center; */
     /* padding: 5px;  */
     background-color: #E8F1F6;
@@ -281,6 +292,10 @@ figure {
     color: #7A7E7F;
 }
 
+.linestyle2 {
+    border-top: 1px solid lightblue;
+    padding-bottom: 40px;
+}
 
 /* #modal2-form > * {
 	text-align: center;
@@ -288,12 +303,12 @@ figure {
 } */
 
 #modal2-form {
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
-	margin-top:30px;
+	margin-top:10px;
 	display: flex;
 	flex-direction: column;
-    width: 90%;
+    width: 100%;
     /* /* grid-template-columns: 1fr; */
     gap: 10px; 
 }
@@ -311,36 +326,67 @@ figure {
     margin: 10px 0px;
 }
 
+#formAddProject {
+    width: 90%;
+}
+
 #modal2-form  label {
 	/* margin: 2em 0 1em 0; */
     margin: 10px 0; 
     text-align: left;
 }
 
-#addPhotoButton2 {
+/* #addPhotoButton2 {
     border: none;
     padding: 10px 30px;
     width: auto;
     /* margin: 0 auto; */
-    margin-top: 10px;
+    /* margin-top: 10px;
     margin-bottom: 10px;
     display: block;
     color: #306685;
     background-color: #CBD6DC;
-    border-radius: 60px; 
+    border
+    -radius: 60px; 
+} */ 
+
+label[for="image"] {
+    border: none;
+    border-radius: 60px;
+    color: #3D6F8C;
+    font-weight: 600;
+    background-color: #CBD6DC;
+    padding: 10px 20px;
 }
 
+
 .submit-button-modal2 {
-	font-family: 'Syne';
-	font-weight: 700;
+    border: none;
+    padding: 7px 75px;
+    width: auto;
+    margin: 0 auto;
+    display: block;
+	/* font-family: 'Syne';
+	font-weight: 700; */
 	color: white;
 	background-color: #A7A7A7;
-	margin : 2em auto ;
-	width: 180px;
+	/* margin : 2em auto ; */
+	/* width: 180px; */
 	text-align: center;
 	border-radius: 60px;
-    width: 20%;
+    /* width: 20%; */
 }
+
+#addPhotoButton{
+    border: none;
+    padding: 10px 30px;
+    width: auto;
+    margin: 0 auto;
+    display: block;
+    color: white;
+    background-color: #1D6154;
+}
+
 
 /*a garder à la fin pour cacher les éléments*/
 .hidden {
