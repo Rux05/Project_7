@@ -161,6 +161,7 @@ hr {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 2em;
 }
 
 .gallery-mode-edition {
@@ -256,6 +257,7 @@ figure {
 }
 
 .modal2-add-photo {
+    /* position: relative; */
     display: flex;
     flex-direction: column;
     align-items: center; 
@@ -267,7 +269,19 @@ figure {
     text-align: center; */
 }
 
+.image-preview {
+    /* position: absolute; */
+    /* top: 50%; */
+    margin-top: 10px;
+    /* transform: translate(-50%, -50%); */
+    width: 36%;
+    /* left: 50%; */
+    /* height: 10%; */
+}
+
 .fa-mountain-sun {
+    /* display: block; */
+    /* position: relative; */
     transform: scaleX(-1);
     /* align-items: center; */
     /* justify-content: center; */
@@ -284,8 +298,8 @@ figure {
     border: 4px solid #B9C5CC;
     margin: auto;
     color: #B9C5CC;
+    margin-top: 10px;
     /* box-sizing: border-box; */
-    position: relative;
 }
 
 .p-modal2 {
@@ -325,6 +339,8 @@ figure {
     max-width: 100%;
     margin: 10px 0px;
 }
+
+
 
 #formAddProject {
     width: 90%;

@@ -4,13 +4,11 @@ let modal = document.getElementById('modal')
 let galleryEdit = document.getElementById('gallery-edit')
 let logoutLink = document.getElementById('logout-link')
 let modalClose = document.querySelector('.js-modal-close')
-//c'est au mauvais endroit. Tu récupérais le titre et non la galerie
-// const modalGalleryPhoto = document.getElementById("title-modal")
-//il faut le mettre dans la galerie en récupérant la classe que tu as mise. En récupérant par la classe, tu auras un tableau. Il faut donc aller chercher le premier élément
+let modalClose2 = document.querySelector('.js-modal-close2')
 const modalGalleryPhoto = document.getElementsByClassName("modal-gallery")[0]
 const modalPartOne = document.querySelector('.part-one');
 const modalPartTwo = document.querySelector('.part-two');
-
+let projetsBar = document.querySelector('.projets-bar')
 
 function modeEdition(e) {
     e.preventDefault()
@@ -41,7 +39,7 @@ if (token) {
     adminBar.innerHTML = `<i class="fa-regular fa-pen-to-square"></i><p class="p-mode-edition">Mode edition</p>`
     galleryEdit.innerHTML = `<i class="fa-regular fa-pen-to-square"></i><p class="gallery-mode-edition">modifier</p>`
     // portfolio.innerHTML = `<p class="projets-mode-edition">Mes projets</p><i class="fa-regular fa-pen-to-square"></i><p id="#modal" class="p-mode-edition">modifier</p>`
-    // document.body.classList.add("logged-in")
+    projetsBar.classList.add("logged-in")
     logoutLink.innerHTML = `<a href="#" id="logout">logout</a>`
     let logout = document.getElementById('logout')
     logout.addEventListener('click', function(event) {
@@ -63,6 +61,11 @@ if (token) {
     })
     modalClose.addEventListener('click', function(event) {
         modal.classList.toggle('hidden')
+    })
+    modalClose2.addEventListener('click', function(event) {
+        modal.classList.toggle('hidden')
+        modalPartOne.classList.toggle('hidden')
+        modalPartTwo.classList.toggle('hidden')
     })
     // modalClose.addEventListener('click', function(event) {
     //     modalPartTwo.classList.toggle('hidden')
@@ -115,11 +118,12 @@ async function deleteProject(workId) {
             })
                 .then((response) => {
                     if (response.ok) {
-                        const projectToDelete = document.querySelector(`.modal-gallery figure[data-category="${workId}"]`);
-                        if (projectToDelete) {
-                            projectToDelete.remove();
-                            console.log("Item deleted")
-                        }
+                        // const projectToDelete = document.querySelector(`.modal-gallery figure[data-category="${workId}"]`);
+                        // if (projectToDelete) {
+                        //     projectToDelete.remove();
+                        //     console.log("Item deleted")
+                        // }
+                        displayProjects()
                         displayModalProjects()
                     } else {
                         throw new Error("Unauthorized")
@@ -133,34 +137,87 @@ async function deleteProject(workId) {
     }
 }
 
-function addImages() {
-    const ImagesInFolder = window.open('./assets/images', '_blank')
-    imagesInFolder.forEach(image => {
-        image.addEventListener('click', function(event) {
-            const title = image.title
-            const categoryId = image.category.id
-            document.querySelector('#uploadForm input[name="title"]').value = title;
-            document.querySelector('#uploadForm select[name="category"]').value = categoryId;
-        });
-    });
-}
+// function addImages() {
+//     const ImagesInFolder = window.open('./assets/images', '_blank')
+//     imagesInFolder.forEach(image => {
+//         image.addEventListener('click', function(event) {
+//             const title = image.title
+//             const categoryId = image.category.id
+//             document.querySelector('#uploadForm input[name="title"]').value = title;
+//             document.querySelector('#uploadForm select[name="category"]').value = categoryId;
+//         });
+//     });
+// }
 
+let formAddProject = document.getElementById("formAddProject")
+let errorMsgImage = document.querySelector('.error-msg-image')
+let errorMsgTitle = document.querySelector('.error-msg-title')
+let titleRegex = /^[a-zA-Z'-À-ÖØ-öø-ÿ\s!?.,:;()]+$/;
+let errorMsgCategory = document.querySelector('.error-msg-category')
 
+formAddProject.addEventListener("submit", function(e) {
+    e.preventDefault();
+    //gérer les champs du formulaire pour savoir s'ils sont remplis
+    if (image.files[0] === "") {
+        errorMsgImage.innerText = "Veuillez télécharger une image";
+    } else {
+        errorMsgImage.innerText = ""; // Resetarea mesajului de eroare
+    }
+    if (title.value === "") {
+        errorMsgTitle.innerText = "Le champ titre ne doit pas etre vide"
+    } else if (titleRegex.test(title.value)===false){
+        errorMsgTitle.innerText = "Le titre n'est pas valide"
+    } 
+    if (category.value === "") {
+        errorMsgCategory.innerText = "Veuillez choisir une catégorie"
+    } else {
+        errorMsgCategory.innerText = ""; // Resetarea mesajului de eroare
+    }
+    //faire l'appel API
+    if (image.files[0] !== "" && title.value !== "" && category.value !== "") { 
+        let data = {
+            image: image.files[0],
+            title: title.value,
+            category: category.value
+        }
+        fetch('http://localhost:5678/api/works', { 
+            method: "POST",
+            headers: { Authorization: `Bearer ${token}`, "Content-Type":  "application/json" },
+            body: JSON.stringify(data),
+        })
+    }
+    })
+    
+image.addEventListener('change', function(event) {
+    const file = event.target.files[0]
+    const imagePreview = document.querySelector('.image-preview')
+    if(file) {
+        const fileReader = new FileReader()
+        fileReader.onload = function(e) {
+            imagePreview.src = e.target.result
+            imagePreview.classList.toggle('hidden')
+        }
+        fileReader.readAsDataURL(file)
+    }
+})    
 
-
-
-// modeEdition()
 
 const closeModal = function (e) {
-    if (modal === null) return
-    e.preventDefault()
-    modal.style.display = "none"
-    modal.setAttribute('aria-hidden', 'true')
-    modal.removeAttribute('aria-modal')
-    modal.removeEventListener('click', closeModal)
-    modal.querySelector('js-modal-close').removeEventListener('click', closeModal)
-    modal.querySelector('js-modal-stop').removeEventListener('click', stopPropagation)
-    modal = null
+    modal.classList.toggle('hidden')
+    if (modalPartOne.classList.contains('hidden')) {
+        modalPartOne.classList.toggle('hidden')
+        modalPartTwo.classList.toggle('hidden')
+    }
+    
+    // if (modal === null) return
+    // e.preventDefault()
+    // modal.style.display = "none"
+    // modal.setAttribute('aria-hidden', 'true')
+    // modal.removeAttribute('aria-modal')
+    // modal.removeEventListener('click', closeModal)
+    // modal.querySelector('js-modal-close').removeEventListener('click', closeModal)
+    // modal.querySelector('js-modal-stop').removeEventListener('click', stopPropagation)
+    // modal = null
 }
 
 const stopPropagation = function (e) {

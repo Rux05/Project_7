@@ -18,6 +18,7 @@ async function fetchProjects () {
 
 async function displayProjects() {
 	await fetchProjects()
+	sectionProjects.innerHTML = ""
 	for(let work of works) {
 		console.log(work)
 		let figure = document.createElement("figure")

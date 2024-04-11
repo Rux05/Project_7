@@ -132,13 +132,16 @@
 				<form id="formAddProject" action="#" method="post" enctype="multipart/form-data">
 					<h3 id="title-modal-deux">Ajout photo</h3>
 					<div class="modal2-add-photo">
+						<img src="" alt="image-preview" class="image-preview hidden">
 						<i class="fa-solid fa-mountain-sun"></i>
 						<label for="image">+ Ajouter photo</label>
                    		<input type="file" hidden name="image" id="image" multiple accept="image/png, image/jpeg">
                    		<p class="p-modal2">jpg, png : 4mo max</p>
+						<div class="error-msg-image"></div>
 					</div>
 					<label for="title">Titre</label>
 					<input type="text" name="name" id="title"><br>
+					<div class="error-msg-title"></div>
                 	<label for="select-category">Catégorie</label>
                 	<select name="category" id="select-category">
                    		<option value="">Veuillez choisir une catégorie</option>
@@ -146,6 +149,7 @@
 						<option value="appartements">Appartements</option>
 						<option value="hotels-restaurants">Hotels & restaurants</option> -->
 					</select>
+					<div class="error-msg-category"></div>
 					<hr>
 					<!-- <div class="linestyle2"></div> -->
 					<button type="submit" class="submit-button-modal2">Valider</button>

@@ -136,7 +136,7 @@ nav ul li a:focus {
 #portfolio h2 {
 	text-align: center;
 	padding-right: 15px;
-	/* margin-bottom: 1em; */
+	margin-bottom: 1em;
 }
 .gallery {
 	width: 100%;
@@ -251,15 +251,15 @@ a {
     color: inherit; 
 }
 
-#portfolio .projets-bar {
+.projets-bar {
 	display: flex;
 	flex-direction: column;
 }
 
-/* #portfolio .logged-in .projets-bar {
+.logged-in {
 	display: flex;
 	flex-direction: row;
-} */
+}
 
 .projets-bar .filters {
     margin-top: 20px; 
