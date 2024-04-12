@@ -175,6 +175,7 @@ formAddProject.addEventListener("submit", function(e) {
     }
     //faire l'appel API
     if (image.files[0] !== "" && title.value !== "" && category.value !== "") { 
+        formAddProject.classList.add('submit-button-active');
         let data = {
             image: image.files[0],
             title: title.value,
@@ -185,8 +186,22 @@ formAddProject.addEventListener("submit", function(e) {
             headers: { Authorization: `Bearer ${token}`, "Content-Type":  "application/json" },
             body: JSON.stringify(data),
         })
-    }
-    })
+        .then((response)=> {
+            if (response.ok) {
+                displayProjects()
+                displayModalProjects()
+            } else if (response.status === 400) {
+                formAddProject.innerText = "Bad Request" 
+            } else if (response.status === 401) {
+                formAddProject.innerText = "Unauthorized"
+            } else {
+                formAddProject.innerText = "Unexpected Error"
+        }
+            })
+        .catch((error)=> console.log(error))
+    } 
+});
+
     
 image.addEventListener('change', function(event) {
     const file = event.target.files[0]
@@ -196,6 +211,9 @@ image.addEventListener('change', function(event) {
         fileReader.onload = function(e) {
             imagePreview.src = e.target.result
             imagePreview.classList.toggle('hidden')
+            document.getElementById('ajouter-photo').classList.add('hidden');
+            document.querySelector('.p-modal2').classList.add('hidden'); 
+            document.querySelector('.fa-mountain-sun').classList.add('hidden');
         }
         fileReader.readAsDataURL(file)
     }
