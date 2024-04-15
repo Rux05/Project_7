@@ -10,6 +10,8 @@ const modalPartOne = document.querySelector('.part-one');
 const modalPartTwo = document.querySelector('.part-two');
 let projetsBar = document.querySelector('.projets-bar')
 
+
+
 function modeEdition(e) {
     e.preventDefault()
     modal.classList.toggle('hidden')
@@ -70,11 +72,12 @@ if (token) {
     // modalClose.addEventListener('click', function(event) {
     //     modalPartTwo.classList.toggle('hidden')
     // })
-    document.querySelector('.fa-arrow-left').addEventListener('click', function(event) {
-        // modeEdition(event)
-        modalPartOne.classList.toggle('hidden')
-        modalPartTwo.classList.toggle('hidden')
-    })
+    // document.querySelector('.fa-arrow-left').addEventListener('click', function(event) {
+    //     // modeEdition(event)
+    //     modalPartOne.classList.toggle('hidden')
+    //     modalPartTwo.classList.toggle('hidden')
+
+    // })
     // document.querySelector('#addPhotoButton2').addEventListener('click', function(event) {
     //     window.open('./assets/images', '_blank')
     //     addImages();
@@ -154,32 +157,35 @@ let errorMsgImage = document.querySelector('.error-msg-image')
 let errorMsgTitle = document.querySelector('.error-msg-title')
 let titleRegex = /^[a-zA-Z'-À-ÖØ-öø-ÿ\s!?.,:;()]+$/;
 let errorMsgCategory = document.querySelector('.error-msg-category')
+let inputImage = document.getElementById("image")
+let inputTitle = document.getElementById("title")
+let inputCategory = document.getElementById("select-category")
 
 formAddProject.addEventListener("submit", function(e) {
     e.preventDefault();
     //gérer les champs du formulaire pour savoir s'ils sont remplis
-    if (image.files[0] === "") {
+    if (inputImage.files[0] === "") {
         errorMsgImage.innerText = "Veuillez télécharger une image";
     } else {
         errorMsgImage.innerText = ""; // Resetarea mesajului de eroare
     }
-    if (title.value === "") {
+    if (inputTitle.value === "") {
         errorMsgTitle.innerText = "Le champ titre ne doit pas etre vide"
     } else if (titleRegex.test(title.value)===false){
         errorMsgTitle.innerText = "Le titre n'est pas valide"
     } 
-    if (category.value === "") {
+    if (inputCategory.value === "") {
         errorMsgCategory.innerText = "Veuillez choisir une catégorie"
     } else {
         errorMsgCategory.innerText = ""; // Resetarea mesajului de eroare
     }
     //faire l'appel API
-    if (image.files[0] !== "" && title.value !== "" && category.value !== "") { 
+    if (inputImage.files[0] !== "" && inputTitle.value !== "" && inputCategory.value !== "") { 
         formAddProject.classList.add('submit-button-active');
         let data = {
-            image: image.files[0],
-            title: title.value,
-            category: category.value
+            image: inputImage.files[0],
+            title: inputTitle.value,
+            category: inputCategory.value
         }
         fetch('http://localhost:5678/api/works', { 
             method: "POST",
@@ -210,15 +216,30 @@ image.addEventListener('change', function(event) {
         const fileReader = new FileReader()
         fileReader.onload = function(e) {
             imagePreview.src = e.target.result
-            imagePreview.classList.toggle('hidden')
+            imagePreview.classList.remove('hidden')
             document.getElementById('ajouter-photo').classList.add('hidden');
             document.querySelector('.p-modal2').classList.add('hidden'); 
             document.querySelector('.fa-mountain-sun').classList.add('hidden');
         }
         fileReader.readAsDataURL(file)
+    } else {
+        imagePreview.src = "";
+        imagePreview.classList.add('hidden');
+        document.getElementById('ajouter-photo').classList.remove('hidden');
+        document.querySelector('.p-modal2').classList.remove('hidden');
     }
 })    
 
+document.querySelector('.fa-arrow-left').addEventListener('click', function(event) {
+    // modeEdition(event)
+    modalPartOne.classList.toggle('hidden')
+    modalPartTwo.classList.toggle('hidden')
+    document.getElementById('formAddProject').reset(); 
+    document.querySelector('.image-preview').src = "";
+    document.querySelector('.fa-mountain-sun').classList.toggle('hidden');
+    document.getElementById('ajouter-photo').classList.toggle('hidden');
+    document.querySelector('.p-modal2').classList.toggle('hidden');
+})
 
 const closeModal = function (e) {
     modal.classList.toggle('hidden')
