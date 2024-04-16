@@ -163,6 +163,10 @@ let inputCategory = document.getElementById("select-category")
 
 formAddProject.addEventListener("submit", function(e) {
     e.preventDefault();
+    // Reset error msgs
+    errorMsgImage.innerText = "";
+    errorMsgTitle.innerText = "";
+    errorMsgCategory.innerText = "";
     //gérer les champs du formulaire pour savoir s'ils sont remplis
     if (inputImage.files[0] === "") {
         errorMsgImage.innerText = "Veuillez télécharger une image";
@@ -177,11 +181,13 @@ formAddProject.addEventListener("submit", function(e) {
     if (inputCategory.value === "") {
         errorMsgCategory.innerText = "Veuillez choisir une catégorie"
     } else {
-        errorMsgCategory.innerText = ""; // Resetarea mesajului de eroare
+        // errorMsgCategory.innerText = ""; // Reset error msg
+        document.querySelector('.submit-button-modal2').classList.add('submit-button-active');
     }
     //faire l'appel API
     if (inputImage.files[0] !== "" && inputTitle.value !== "" && inputCategory.value !== "") { 
-        formAddProject.classList.add('submit-button-active');
+        // formAddProject.classList.add('submit-button-active');
+        // document.querySelector('.submit-button-modal2').classList.add('submit-button-active');
         let data = {
             image: inputImage.files[0],
             title: inputTitle.value,
@@ -194,17 +200,38 @@ formAddProject.addEventListener("submit", function(e) {
         })
         .then((response)=> {
             if (response.ok) {
+                let newFigure = document.createElement("figure");
+                newFigure.setAttribute("data-category", work.categoryId);
+
+                const newImageElement = document.createElement('img');
+                newImageElement.src = work.imageUrl;
+
+                let newFigcaption = document.createElement("figcaption");
+                newFigcaption.innerText = work.title;
+
+                newFigure.appendChild(newImageElement);
+                newFigure.appendChild(newFigcaption);
+
+                sectionProjects.appendChild(newFigure);
+                
                 displayProjects()
                 displayModalProjects()
             } else if (response.status === 400) {
                 formAddProject.innerText = "Bad Request" 
+                // errorMsgCategory.innerText = "Bad Request"
             } else if (response.status === 401) {
                 formAddProject.innerText = "Unauthorized"
+                // errorMsgCategory.innerText = "Unauthorized"
             } else {
-                formAddProject.innerText = "Unexpected Error"
+                // formAddProject.innerText = "Unexpected Error"
+                throw new Error('Unexpected Error')
         }
             })
         .catch((error)=> console.log(error))
+        // .catch((error)=> {
+        //     console.error(error); // Afișează detaliile erorii în consolă
+        //     errorMsgCategory.innerText = "Unexpected Error";
+        // });
     } 
 });
 

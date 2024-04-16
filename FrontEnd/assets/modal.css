@@ -275,11 +275,11 @@ figure {
     /* top: 50%; */
     /* margin-top: 10px; */
     /* transform: translate(-50%, -50%); */
-    max-width: 35%;
+    width: 100px;
     margin: 0;
-    /* object-fit: cover; */
+    object-fit: cover;
     /* left: 50%; */
-    max-height: 125px;
+    height: 125px;
 }
 
 .fa-mountain-sun {
