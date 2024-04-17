@@ -351,7 +351,14 @@ window.addEventListener('keydown', function(e) {
 
 const overlay = document.querySelector('.overlay');
 overlay.addEventListener('click', function() {
-    closeModal();
+    // closeModal();
+    modal.classList.toggle('hidden');
+    modalPartOne.classList.toggle('hidden');
+    modalPartTwo.classList.toggle('hidden');
+});
+
+modal.addEventListener('click', function(event) {
+    event.stopPropagation(); 
 });
 
 // document.addEventListener('click', function(event) {
