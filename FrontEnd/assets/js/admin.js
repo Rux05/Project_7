@@ -198,42 +198,55 @@ formAddProject.addEventListener("submit", function(e) {
             headers: { Authorization: `Bearer ${token}`, "Content-Type":  "application/json" },
             body: JSON.stringify(data),
         })
-        .then((response)=> {
-            if (response.ok) {
-                let newFigure = document.createElement("figure");
-                newFigure.setAttribute("data-category", work.categoryId);
+    };
 
-                const newImageElement = document.createElement('img');
-                newImageElement.src = work.imageUrl;
+        // .then((response)=> {
+        //     if (response.ok) {
+        //         modalGalleryPhoto.innerHTML = '';
+        //         let newFigure = document.createElement("figure");
+        //         newFigure.setAttribute("data-category", work.categoryId);
 
-                let newFigcaption = document.createElement("figcaption");
-                newFigcaption.innerText = work.title;
+        //         const newImageElement = document.createElement('img');
+        //         newImageElement.src = work.imageUrl;
 
-                newFigure.appendChild(newImageElement);
-                newFigure.appendChild(newFigcaption);
+        //         let newIcon = document.createElement("i");
+        //         newIcon.classList.add('fa-solid', 'fa-trash-can');
+        //         newIcon.addEventListener('click', function(event) {
+        //             deleteProject(data.id);
+        //         });
 
-                sectionProjects.appendChild(newFigure);
+        //         newFigure.appendChild(newImageElement);
+        //         newFigure.appendChild(newIcon);
+
+        //         modalGalleryPhoto.appendChild(newFigure);
+        //         // Add project in main gallery (index)
+        //         let projectFigure = newFigure.cloneNode(true); // Clone element & adds it in main gallery
+        //         sectionProjects.appendChild(projectFigure);
+            
+        //         let newFigcaption = document.createElement("figcaption");
+        //         newFigcaption.innerText = work.title;
                 
-                displayProjects()
-                displayModalProjects()
-            } else if (response.status === 400) {
-                formAddProject.innerText = "Bad Request" 
-                // errorMsgCategory.innerText = "Bad Request"
-            } else if (response.status === 401) {
-                formAddProject.innerText = "Unauthorized"
-                // errorMsgCategory.innerText = "Unauthorized"
-            } else {
-                // formAddProject.innerText = "Unexpected Error"
-                throw new Error('Unexpected Error')
-        }
-            })
-        .catch((error)=> console.log(error))
-        // .catch((error)=> {
-        //     console.error(error); // Afișează detaliile erorii în consolă
-        //     errorMsgCategory.innerText = "Unexpected Error";
-        // });
-    } 
-});
+        //         displayProjects()
+        //         displayModalProjects()
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     })
+        // } else if (response.status === 400) {
+        //         formAddProject.innerText = "Bad Request" 
+        //         // errorMsgCategory.innerText = "Bad Request"
+        //     } else if (response.status === 401) {
+        //         formAddProject.innerText = "Unauthorized"
+        //         // errorMsgCategory.innerText = "Unauthorized"
+        //     } else {
+        //         // formAddProject.innerText = "Unexpected Error"
+        //         throw new Error('Unexpected Error')
+        // }
+        //     })
+        // .catch((error)=> { 
+        //     console.log(error) 
+        // }
+    });
 
     
 image.addEventListener('change', function(event) {
@@ -301,6 +314,13 @@ window.addEventListener('keydown', function(e) {
     }
 })
 
+// document.addEventListener('click', function(event) {
+//     // La fenêtre modale  se referme lorsque l’on clique en dehors de la modale
+//     if (!modal.contains(event.target) && !addPhotoButton.contains(event.target)) {
+//         closeModal();
+//     }
+// });
+
 async function selectCategory() {
     await fetchCategories()
     console.log(categories)
@@ -310,16 +330,3 @@ async function selectCategory() {
     }
 }
 selectCategory()
-
-// let modal = document.getElementById('modal')
-
-// modeEdition.addEventListener('click', function(event) {
-//     event.preventDefault();
-//     modal.setAttribute('aria-hidden', 'false')
-//     showModeEdition()
-// }) 
-
-// function showModeEdition() {
-    
-// }
-
