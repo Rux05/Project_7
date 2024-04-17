@@ -160,6 +160,15 @@ let errorMsgCategory = document.querySelector('.error-msg-category')
 let inputImage = document.getElementById("image")
 let inputTitle = document.getElementById("title")
 let inputCategory = document.getElementById("select-category")
+let submitButtonModal2 = document.querySelector('.submit-button-modal2')
+function checkFieldValidity() {
+    if(inputTitle.value === '' && inputImage.files.length < 0 && inputCategory.value === '') {
+        submitButtonModal2.disabled = true
+    } else {
+        submitButtonModal2.disabled = false
+    }
+}
+inputTitle.addEventListener('input', checkFieldValidity())
 
 formAddProject.addEventListener("submit", function(e) {
     e.preventDefault();
@@ -181,23 +190,49 @@ formAddProject.addEventListener("submit", function(e) {
     if (inputCategory.value === "") {
         errorMsgCategory.innerText = "Veuillez choisir une catégorie"
     } else {
-        // errorMsgCategory.innerText = ""; // Reset error msg
-        document.querySelector('.submit-button-modal2').classList.add('submit-button-active');
+        errorMsgCategory.innerText = ""; // Reset error msg
+        // document.querySelector('.submit-button-modal2').classList.add('submit-button-active');
     }
     //faire l'appel API
     if (inputImage.files[0] !== "" && inputTitle.value !== "" && inputCategory.value !== "") { 
         // formAddProject.classList.add('submit-button-active');
         // document.querySelector('.submit-button-modal2').classList.add('submit-button-active');
-        let data = {
-            image: inputImage.files[0],
-            title: inputTitle.value,
-            category: inputCategory.value
-        }
+        const formData = new FormData
+        formData.append('title', inputTitle.value)
+        formData.append('image', inputImage.files[0])
+        formData.append('category', inputCategory.value)
+        // let data = {
+        //     image: inputImage.files[0],
+        //     title: inputTitle.value,
+        //     category: inputCategory.value
+        // }
         fetch('http://localhost:5678/api/works', { 
             method: "POST",
-            headers: { Authorization: `Bearer ${token}`, "Content-Type":  "application/json" },
-            body: JSON.stringify(data),
+            headers: { Authorization: `Bearer ${token}`},
+            body: formData,
         })
+        .then((response)=> {
+                if (response.ok) { 
+                    displayProjects()
+                    displayModalProjects()
+                    closeModal()
+                }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+            // } else if (response.status === 400) {
+            //         formAddProject.innerText = "Bad Request" 
+            //         // errorMsgCategory.innerText = "Bad Request"
+            //     } else if (response.status === 401) {
+            //         formAddProject.innerText = "Unauthorized"
+            //         // errorMsgCategory.innerText = "Unauthorized"
+            //     } else {
+            //         // formAddProject.innerText = "Unexpected Error"
+            //         throw new Error('Unexpected Error')
+            // }
+            //     })
+            
     };
 
         // .then((response)=> {
@@ -313,6 +348,11 @@ window.addEventListener('keydown', function(e) {
         closeModal(e)
     }
 })
+
+const overlay = document.querySelector('.overlay');
+overlay.addEventListener('click', function() {
+    closeModal();
+});
 
 // document.addEventListener('click', function(event) {
 //     // La fenêtre modale  se referme lorsque l’on clique en dehors de la modale
