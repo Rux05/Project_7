@@ -17,25 +17,8 @@ function modeEdition(e) {
     modal.classList.toggle('hidden')
     document.body.classList.toggle('modal-open')
     console.log('modalOuvert')
-    // const target = document.querySelector(e.target.getAttribute('href'))
-    // target.style.display = null
-    // target.removeAttribute('aria-hidden')
-    // target.setAttribute('aria-modal', 'true')
-    // modal = target
-    // modal.addEventListener('click', closeModal)
-    // modal.querySelector('js-modal-close').addEventListener('click', closeModal)
-    // modal.querySelector('js-modal-stop').addEventListener('click', stopPropagation)
 }
 
-// function modalPartTwo(e) {
-//     e.preventDefault()
-//     const modalPartOne = document.querySelector('.part-one');
-//     modalPartOne.classList.add('hidden');
-//     const modalPartTwo = document.querySelector('.part-two');
-//     modalPartTwo.classList.remove('hidden');
-//     document.body.classList.toggle('modal-open')
-//     console.log('modalOuvertPartTwo')
-// }
 
 if (token) {
     adminBar.innerHTML = `<i class="fa-regular fa-pen-to-square"></i><p class="p-mode-edition">Mode edition</p>`
@@ -49,7 +32,6 @@ if (token) {
         window.location.reload()
     })
     filters.style.display = 'none'
-    //il vaut mieux le faire sur "gallery-adit" pour rendre l'ensemble cliquable
     document.querySelector('#gallery-edit').addEventListener('click', function(event) {
         modeEdition(event)
     })
@@ -69,22 +51,7 @@ if (token) {
         modalPartOne.classList.toggle('hidden')
         modalPartTwo.classList.toggle('hidden')
     })
-    // modalClose.addEventListener('click', function(event) {
-    //     modalPartTwo.classList.toggle('hidden')
-    // })
-    // document.querySelector('.fa-arrow-left').addEventListener('click', function(event) {
-    //     // modeEdition(event)
-    //     modalPartOne.classList.toggle('hidden')
-    //     modalPartTwo.classList.toggle('hidden')
-
-    // })
-    // document.querySelector('#addPhotoButton2').addEventListener('click', function(event) {
-    //     window.open('./assets/images', '_blank')
-    //     addImages();
-    // })
 }
-
-
 
 async function displayModalProjects() {
     modalGalleryPhoto.innerHTML = '';  // Curăță conținutul existent din containerul de proiecte
@@ -140,18 +107,6 @@ async function deleteProject(workId) {
     }
 }
 
-// function addImages() {
-//     const ImagesInFolder = window.open('./assets/images', '_blank')
-//     imagesInFolder.forEach(image => {
-//         image.addEventListener('click', function(event) {
-//             const title = image.title
-//             const categoryId = image.category.id
-//             document.querySelector('#uploadForm input[name="title"]').value = title;
-//             document.querySelector('#uploadForm select[name="category"]').value = categoryId;
-//         });
-//     });
-// }
-
 let formAddProject = document.getElementById("formAddProject")
 let errorMsgImage = document.querySelector('.error-msg-image')
 let errorMsgTitle = document.querySelector('.error-msg-title')
@@ -169,6 +124,8 @@ function checkFieldValidity() {
     }
 }
 inputTitle.addEventListener('input', checkFieldValidity())
+inputImage.addEventListener('input', checkFieldValidity())
+inputCategory.addEventListener('input', checkFieldValidity())
 
 formAddProject.addEventListener("submit", function(e) {
     e.preventDefault();
@@ -322,16 +279,6 @@ const closeModal = function (e) {
         modalPartOne.classList.toggle('hidden')
         modalPartTwo.classList.toggle('hidden')
     }
-    
-    // if (modal === null) return
-    // e.preventDefault()
-    // modal.style.display = "none"
-    // modal.setAttribute('aria-hidden', 'true')
-    // modal.removeAttribute('aria-modal')
-    // modal.removeEventListener('click', closeModal)
-    // modal.querySelector('js-modal-close').removeEventListener('click', closeModal)
-    // modal.querySelector('js-modal-stop').removeEventListener('click', stopPropagation)
-    // modal = null
 }
 
 const stopPropagation = function (e) {
@@ -360,13 +307,6 @@ overlay.addEventListener('click', function() {
 modal.addEventListener('click', function(event) {
     event.stopPropagation(); 
 });
-
-// document.addEventListener('click', function(event) {
-//     // La fenêtre modale  se referme lorsque l’on clique en dehors de la modale
-//     if (!modal.contains(event.target) && !addPhotoButton.contains(event.target)) {
-//         closeModal();
-//     }
-// });
 
 async function selectCategory() {
     await fetchCategories()

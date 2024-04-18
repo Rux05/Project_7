@@ -159,34 +159,6 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 
-/* input[type="email"]{
-	width: 180px;
-	align-content: center;
-	
-}
-
-input[type="password"]{
-	width: 180px;
-	align-content: center;
-	
-} */
-
-/* .form-container {
-	text-align: center;
-	width: 100%;
-	justify-content: center;
-	margin-top:10px;
-	display: flex;
-	flex-direction: column;
-} */
-
-/* .login-form {
-	text-align: center;
-	margin-top:30px;
-	display: flex;
-	flex-direction: column;
-} */
-
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
@@ -200,7 +172,7 @@ a {
 
 a:focus,
 a:active {
-    font-weight: bold;  /* !!!!! doesn't work */
+    font-weight: bold;  
 }
 
 
