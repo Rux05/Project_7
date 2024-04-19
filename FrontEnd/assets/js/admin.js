@@ -121,56 +121,45 @@ const allowedTypes = ["image/jpeg", "image/png"];
 const maxSize = 4 * 1024 * 1024; // 4 MB
 
 function checkFieldValidity() {
-    if(inputTitle.value === '' && inputImage.files.length < 0 && inputCategory.value === '') {
-        submitButtonModal2.disabled = true
-    } else {
+    debugger
+    if(inputTitle.value !== '' && inputImage.files.length > 0 && inputCategory.value !== '') {
         submitButtonModal2.disabled = false
+        submitButtonModal2.style.backgroundColor = "#1D6154"
+    } else {
+        submitButtonModal2.disabled = true
+        submitButtonModal2.style.backgroundColor = "#A7A7A7"
     }
 }
-inputTitle.addEventListener('input', checkFieldValidity())
-inputImage.addEventListener('input', checkFieldValidity())
-inputCategory.addEventListener('input', checkFieldValidity())
+inputTitle.addEventListener('input', checkFieldValidity)
+inputImage.addEventListener('input', checkFieldValidity)
+inputCategory.addEventListener('change', checkFieldValidity)
 
 formAddProject.addEventListener("submit", function(e) {
-    e.preventDefault();
+    e.preventDefault(); 
     // Reset error msgs
     errorMsgImage.innerText = "";
     errorMsgTitle.innerText = "";
     errorMsgCategory.innerText = "";
     //gérer les champs du formulaire pour savoir s'ils sont remplis
-    if (inputImage.files[0] === "") {
+    // // Verify image type + size
+    if (!inputImage.files[0]) {
         errorMsgImage.innerText = "Veuillez télécharger une image";
-        // return; // Stops sending the demand to server 
-    } else {
-        // const imageFile = inputImage.files[0];
-        // const allowedTypes = ["image/jpeg", "image/png"];
-        // const maxSize = 4 * 1024 * 1024; // 4 MB
-
-        // Verify image type + size
-        // if (imageFile && !allowedTypes.includes(imageFile.type)) { // if image type is not included in allowedTypes
-        //     errorMsgImage.innerText = "L'image doit être de type JPG ou PNG.";
-        // } else if (imageFile && imageFile.size > maxSize) {
-        //     errorMsgImage.innerText = "L'image ne doit pas dépasser 4 Mo.";
-        // } else {
-        //     errorMsgImage.innerText = ""; // Reset error msg
-        //     errorMsgTitle.innerText = ""; 
-        //     errorMsgCategory.innerText = "";
-        //     formAddProject.reset();
-        // }
-    }
-    if (inputTitle.value === "") {
+    } else if (!["image/jpeg", "image/png"].includes(inputImage.files[0].type)) {  //if image type is not included in allowedTypes
+        errorMsgImage.innerText = "Veuillez sélectionner une image au format JPG ou PNG.";
+    } else if (inputImage.files[0].size > 4 * 1024 * 1024) {
+        errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
+    } else if (inputTitle.value === "") {
         errorMsgTitle.innerText = "Le champ titre ne doit pas etre vide"
-    } else if (titleRegex.test(title.value)===false){
+    } else if (titleRegex.test(title.value)===false) {
         errorMsgTitle.innerText = "Le titre n'est pas valide"
-    } 
-    if (inputCategory.value === "") {
+    } else if (inputCategory.value === "") {
         errorMsgCategory.innerText = "Veuillez choisir une catégorie"
-    } else {
-        errorMsgCategory.innerText = ""; // Reset error msg
-        // document.querySelector('.submit-button-modal2').classList.add('submit-button-active');
-    }
+    // } else {
+    //     errorMsgCategory.innerText = ""; // Reset error msg
+    //     // document.querySelector('.submit-button-modal2').classList.add('submit-button-active');
+    // }
     //faire l'appel API
-    if (inputImage.files[0] !== "" && inputTitle.value !== "" && inputCategory.value !== "") { 
+    } else if (inputImage.files[0] !== "" && inputTitle.value !== "" && inputCategory.value !== "") { 
         // formAddProject.classList.add('submit-button-active');
         // document.querySelector('.submit-button-modal2').classList.add('submit-button-active');
         const formData = new FormData
@@ -182,10 +171,10 @@ formAddProject.addEventListener("submit", function(e) {
         //     title: inputTitle.value,
         //     category: inputCategory.value
         // }
-        fetch('http://localhost:5678/api/works', { 
+        fetch('http://localhost:5678/api/works', {
             method: "POST",
             headers: { Authorization: `Bearer ${token}`},
-            body: formData,
+            body: formData, 
         })
         .then((response)=> {
                 if (response.ok) { 
@@ -197,20 +186,8 @@ formAddProject.addEventListener("submit", function(e) {
         .catch((error) => {
             console.log(error);
         })
-            // } else if (response.status === 400) {
-            //         formAddProject.innerText = "Bad Request" 
-            //         // errorMsgCategory.innerText = "Bad Request"
-            //     } else if (response.status === 401) {
-            //         formAddProject.innerText = "Unauthorized"
-            //         // errorMsgCategory.innerText = "Unauthorized"
-            //     } else {
-            //         // formAddProject.innerText = "Unexpected Error"
-            //         throw new Error('Unexpected Error')
-            // }
-            //     })
-            
-    };
-
+    }
+    });
         // .then((response)=> {
         //     if (response.ok) {
         //         modalGalleryPhoto.innerHTML = '';
@@ -257,7 +234,7 @@ formAddProject.addEventListener("submit", function(e) {
         // .catch((error)=> { 
         //     console.log(error) 
         // }
-    });
+    
 
     
 image.addEventListener('change', function(event) {
@@ -312,6 +289,11 @@ document.querySelectorAll('admin-bar').forEach(a => {
 window.addEventListener('keydown', function(e) {
     if (e.key === "Escape" || e.key === "Esc") {
         closeModal(e)
+        document.getElementById('formAddProject').reset(); 
+        document.querySelector('.image-preview').src = "";
+        document.querySelector('.fa-mountain-sun').classList.toggle('hidden');
+        document.getElementById('ajouter-photo').classList.toggle('hidden');
+        document.querySelector('.p-modal2').classList.toggle('hidden');
     }
 })
 
