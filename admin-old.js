@@ -116,10 +116,6 @@ let inputImage = document.getElementById("image")
 let inputTitle = document.getElementById("title")
 let inputCategory = document.getElementById("select-category")
 let submitButtonModal2 = document.querySelector('.submit-button-modal2')
-const imageFile = inputImage.files[0];
-const allowedTypes = ["image/jpeg", "image/png"];
-const maxSize = 4 * 1024 * 1024; // 4 MB
-
 function checkFieldValidity() {
     if(inputTitle.value === '' && inputImage.files.length < 0 && inputCategory.value === '') {
         submitButtonModal2.disabled = true
@@ -140,23 +136,8 @@ formAddProject.addEventListener("submit", function(e) {
     //gérer les champs du formulaire pour savoir s'ils sont remplis
     if (inputImage.files[0] === "") {
         errorMsgImage.innerText = "Veuillez télécharger une image";
-        // return; // Stops sending the demand to server 
     } else {
-        // const imageFile = inputImage.files[0];
-        // const allowedTypes = ["image/jpeg", "image/png"];
-        // const maxSize = 4 * 1024 * 1024; // 4 MB
-
-        // Verify image type + size
-        // if (imageFile && !allowedTypes.includes(imageFile.type)) { // if image type is not included in allowedTypes
-        //     errorMsgImage.innerText = "L'image doit être de type JPG ou PNG.";
-        // } else if (imageFile && imageFile.size > maxSize) {
-        //     errorMsgImage.innerText = "L'image ne doit pas dépasser 4 Mo.";
-        // } else {
-        //     errorMsgImage.innerText = ""; // Reset error msg
-        //     errorMsgTitle.innerText = ""; 
-        //     errorMsgCategory.innerText = "";
-        //     formAddProject.reset();
-        // }
+        errorMsgImage.innerText = ""; // Resetarea mesajului de eroare
     }
     if (inputTitle.value === "") {
         errorMsgTitle.innerText = "Le champ titre ne doit pas etre vide"
