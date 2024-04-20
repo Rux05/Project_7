@@ -141,25 +141,28 @@ formAddProject.addEventListener("submit", function(e) {
     errorMsgTitle.innerText = "";
     errorMsgCategory.innerText = "";
     //gérer les champs du formulaire pour savoir s'ils sont remplis
-    // // Verify image type + size
+    // // Verify image type + size 
     if (!inputImage.files[0]) {
         errorMsgImage.innerText = "Veuillez télécharger une image";
-    } else if (!["image/jpeg", "image/png"].includes(inputImage.files[0].type)) {  //if image type is not included in allowedTypes
-        errorMsgImage.innerText = "Veuillez sélectionner une image au format JPG ou PNG.";
+    } else if (!["image/jpeg", "image/png"].includes(inputImage.files[0].type)) { //if image type is not included in allowedTypes
+        errorMsgImage.innerText = "Veuillez sélectionner une image au format jpg ou png.";
     } else if (inputImage.files[0].size > 4 * 1024 * 1024) {
         errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
-    } else if (inputTitle.value === "") {
+    } 
+    if (inputTitle.value === "") {
         errorMsgTitle.innerText = "Le champ titre ne doit pas etre vide"
     } else if (titleRegex.test(title.value)===false) {
         errorMsgTitle.innerText = "Le titre n'est pas valide"
-    } else if (inputCategory.value === "") {
+    }
+    if (inputCategory.value === "") {  
         errorMsgCategory.innerText = "Veuillez choisir une catégorie"
     // } else {
     //     errorMsgCategory.innerText = ""; // Reset error msg
     //     // document.querySelector('.submit-button-modal2').classList.add('submit-button-active');
     // }
     //faire l'appel API
-    } else if (inputImage.files[0] !== "" && inputTitle.value !== "" && inputCategory.value !== "") { 
+    }
+    if (inputImage.files[0] !== "" && inputTitle.value !== "" && inputCategory.value !== "") { 
         // formAddProject.classList.add('submit-button-active');
         // document.querySelector('.submit-button-modal2').classList.add('submit-button-active');
         const formData = new FormData
@@ -188,54 +191,7 @@ formAddProject.addEventListener("submit", function(e) {
         })
     }
     });
-        // .then((response)=> {
-        //     if (response.ok) {
-        //         modalGalleryPhoto.innerHTML = '';
-        //         let newFigure = document.createElement("figure");
-        //         newFigure.setAttribute("data-category", work.categoryId);
-
-        //         const newImageElement = document.createElement('img');
-        //         newImageElement.src = work.imageUrl;
-
-        //         let newIcon = document.createElement("i");
-        //         newIcon.classList.add('fa-solid', 'fa-trash-can');
-        //         newIcon.addEventListener('click', function(event) {
-        //             deleteProject(data.id);
-        //         });
-
-        //         newFigure.appendChild(newImageElement);
-        //         newFigure.appendChild(newIcon);
-
-        //         modalGalleryPhoto.appendChild(newFigure);
-        //         // Add project in main gallery (index)
-        //         let projectFigure = newFigure.cloneNode(true); // Clone element & adds it in main gallery
-        //         sectionProjects.appendChild(projectFigure);
-            
-        //         let newFigcaption = document.createElement("figcaption");
-        //         newFigcaption.innerText = work.title;
-                
-        //         displayProjects()
-        //         displayModalProjects()
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     })
-        // } else if (response.status === 400) {
-        //         formAddProject.innerText = "Bad Request" 
-        //         // errorMsgCategory.innerText = "Bad Request"
-        //     } else if (response.status === 401) {
-        //         formAddProject.innerText = "Unauthorized"
-        //         // errorMsgCategory.innerText = "Unauthorized"
-        //     } else {
-        //         // formAddProject.innerText = "Unexpected Error"
-        //         throw new Error('Unexpected Error')
-        // }
-        //     })
-        // .catch((error)=> { 
-        //     console.log(error) 
-        // }
     
-
     
 image.addEventListener('change', function(event) {
     const file = event.target.files[0]
