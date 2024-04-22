@@ -270,8 +270,8 @@ image.addEventListener('change', function(event) {
         }
         fileReader.readAsDataURL(file)
     } else {
-        errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
-        submitButtonModal2.disabled = true;
+        // errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
+        // submitButtonModal2.disabled = true;
         // checkFieldValidity();
         imagePreview.src = "";
         imagePreview.classList.add('hidden');
