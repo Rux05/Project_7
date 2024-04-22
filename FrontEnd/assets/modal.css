@@ -200,8 +200,8 @@ hr {
 
 .modal-gallery img {
     width: 100%;
-    /* height: 101.41px; */
-    max-height: auto;
+    height: 100%;
+    /* max-height: auto; */
 }
 
 .fa-trash-can {

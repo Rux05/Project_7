@@ -148,7 +148,8 @@ nav ul li a:focus {
 
 .gallery img {
 	width: 100%;
-	height: 389.3px;
+	/* height: 389.3px; */
+	height: 100%;
 }
 
 .filters {

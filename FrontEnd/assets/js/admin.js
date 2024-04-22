@@ -121,7 +121,29 @@ const allowedTypes = ["image/jpeg", "image/png"];
 const maxSize = 4 * 1024 * 1024; // 4 MB
 
 function checkFieldValidity() {
-    debugger
+    // debugger
+    if (!inputImage.files[0]) {
+        errorMsgImage.innerText = "Veuillez télécharger une image";
+        // errorMsgImage.innerText = "";
+    } else if (!["image/jpeg", "image/png"].includes(inputImage.files[0].type)) {
+        errorMsgImage.innerText = "Veuillez sélectionner une image au format jpg ou png.";
+    } else if (inputImage.files[0].size > 4 * 1024 * 1024) {
+        errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
+    }
+    if (inputTitle.value === "") {
+        errorMsgTitle.innerText = "Le champ titre ne doit pas etre vide"
+        // errorMsgTitle.innerText = "";
+    } else if (titleRegex.test(title.value)===false){
+        errorMsgTitle.innerText = "Le titre n'est pas valide"
+    }
+    if (inputCategory.value === "") {
+        errorMsgCategory.innerText = "Veuillez choisir une catégorie"
+        // errorMsgCategory.innerText = ""; // Reset error msg
+    } else {
+        errorMsgCategory.innerText = ""; // Reset error msg
+        // errorMsgImage.innerText = "";
+        // errorMsgTitle.innerText = "";
+    }
     if(inputTitle.value !== '' && inputImage.files.length > 0 && inputCategory.value !== '') {
         submitButtonModal2.disabled = false
         submitButtonModal2.style.backgroundColor = "#1D6154"
@@ -130,6 +152,7 @@ function checkFieldValidity() {
         submitButtonModal2.style.backgroundColor = "#A7A7A7"
     }
 }
+
 inputTitle.addEventListener('input', checkFieldValidity)
 inputImage.addEventListener('input', checkFieldValidity)
 inputCategory.addEventListener('change', checkFieldValidity)
@@ -142,26 +165,26 @@ formAddProject.addEventListener("submit", function(e) {
     errorMsgCategory.innerText = "";
     //gérer les champs du formulaire pour savoir s'ils sont remplis
     // // Verify image type + size 
-    if (!inputImage.files[0]) {
-        errorMsgImage.innerText = "Veuillez télécharger une image";
-    } else if (!["image/jpeg", "image/png"].includes(inputImage.files[0].type)) { //if image type is not included in allowedTypes
-        errorMsgImage.innerText = "Veuillez sélectionner une image au format jpg ou png.";
-    } else if (inputImage.files[0].size > 4 * 1024 * 1024) {
-        errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
-    } 
-    if (inputTitle.value === "") {
-        errorMsgTitle.innerText = "Le champ titre ne doit pas etre vide"
-    } else if (titleRegex.test(title.value)===false) {
-        errorMsgTitle.innerText = "Le titre n'est pas valide"
-    }
-    if (inputCategory.value === "") {  
-        errorMsgCategory.innerText = "Veuillez choisir une catégorie"
-    // } else {
+    // if (!inputImage.files[0]) {
+    //     errorMsgImage.innerText = "Veuillez télécharger une image";
+    // } else if (!["image/jpeg", "image/png"].includes(inputImage.files[0].type)) { //if image type is not included in allowedTypes
+    //     errorMsgImage.innerText = "Veuillez sélectionner une image au format jpg ou png.";
+    // } else if (inputImage.files[0].size > 4 * 1024 * 1024) {
+    //     errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
+    // } 
+    // if (inputTitle.value === "") {
+    //     errorMsgTitle.innerText = "Le champ titre ne doit pas etre vide"
+    // } else if (titleRegex.test(title.value)===false) {
+    //     errorMsgTitle.innerText = "Le titre n'est pas valide"
+    // }
+    // if (inputCategory.value === "") {  
+    //     errorMsgCategory.innerText = "Veuillez choisir une catégorie"
+    // // } else {
     //     errorMsgCategory.innerText = ""; // Reset error msg
     //     // document.querySelector('.submit-button-modal2').classList.add('submit-button-active');
     // }
     //faire l'appel API
-    }
+    // }
     if (inputImage.files[0] !== "" && inputTitle.value !== "" && inputCategory.value !== "") { 
         // formAddProject.classList.add('submit-button-active');
         // document.querySelector('.submit-button-modal2').classList.add('submit-button-active');
@@ -183,6 +206,11 @@ formAddProject.addEventListener("submit", function(e) {
                 if (response.ok) { 
                     displayProjects()
                     displayModalProjects()
+                    document.getElementById('formAddProject').reset(); 
+                    document.querySelector('.image-preview').src = "";
+                    document.querySelector('.fa-mountain-sun').classList.toggle('hidden');
+                    document.getElementById('ajouter-photo').classList.toggle('hidden');
+                    document.querySelector('.p-modal2').classList.toggle('hidden');
                     closeModal()
                 }
         })
@@ -197,22 +225,35 @@ image.addEventListener('change', function(event) {
     const file = event.target.files[0]
     const imagePreview = document.querySelector('.image-preview')
     if(file) {
-        const fileReader = new FileReader()
-        fileReader.onload = function(e) {
-            imagePreview.src = e.target.result
-            imagePreview.classList.remove('hidden')
-            document.getElementById('ajouter-photo').classList.add('hidden');
-            document.querySelector('.p-modal2').classList.add('hidden'); 
-            document.querySelector('.fa-mountain-sun').classList.add('hidden');
+        if (file.size > 4 * 1024 * 1024) {
+            errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
+            console.log("La taille de l'image ne doit pas dépasser 4 Mo.");
+            submitButtonModal2.disabled = true;
+            imagePreview.src = "";
+            imagePreview.classList.add('hidden');
+            submitButtonModal2.disabled = true;
+        } else {
+            const fileReader = new FileReader()
+            fileReader.onload = function(e) {
+                imagePreview.src = e.target.result
+                imagePreview.classList.remove('hidden')
+                document.getElementById('ajouter-photo').classList.add('hidden');
+                document.querySelector('.p-modal2').classList.add('hidden'); 
+                document.querySelector('.fa-mountain-sun').classList.add('hidden');
+                // submitButtonModal2.disabled = false;
+                checkFieldValidity();
+            }
+            fileReader.readAsDataURL(file)
         }
-        fileReader.readAsDataURL(file)
     } else {
         imagePreview.src = "";
         imagePreview.classList.add('hidden');
         document.getElementById('ajouter-photo').classList.remove('hidden');
         document.querySelector('.p-modal2').classList.remove('hidden');
+        submitButtonModal2.disabled = true;
+        checkFieldValidity();
     }
-})    
+});    
 
 document.querySelector('.fa-arrow-left').addEventListener('click', function(event) {
     // modeEdition(event)
