@@ -18,7 +18,8 @@
 }
 
 .p-mode-edition {
-    text-align: center;
+    /* text-align: center; */
+    align-self: center;
     /* margin-bottom: 1em; */
     font-family: 'Syne', serif;
     /* font-weight: 400; */
@@ -120,19 +121,21 @@
     /* display: flex; */
     position: absolute;
     /*il faut bien mettre sa position par rapport au haut et à la droite*/
-    top: -5%;
+    top: -2%;
     right: 3%;
     /* top: 100px;
     right: 100px;  */
     width: 20px;
     height: 20px;
     font-size: 16px;
-    line-height: 3; /* line height for vertical alignment*/
+    line-height: 1; /* line height for vertical alignment*/
     background-color: transparent;
     border: none;
     outline: none; /* Fără contur la focus */
     color: black;
     padding: 0;
+    margin: 2em auto;
+    font-family: 'Syne';
 }
 
 #title-modal {
@@ -143,7 +146,7 @@
     margin-bottom: 8%;
 }
 
-#addPhotoButton{
+#addPhotoButton {
     border: none;
     padding: 10px 30px;
     width: auto;
@@ -151,6 +154,12 @@
     display: block;
     color: white;
     background-color: #1D6154;
+    font-family: 'Syne';
+	font-weight: 700;
+	/* margin : 2em auto ; */
+	/* width: 180px; */
+	text-align: center;
+	border-radius: 60px ;
 }
 
 hr {
@@ -222,19 +231,18 @@ figure {
 .js-modal-close2 {
     /* display: flex; */
     position: absolute;
-    top: -3%;
-    right: 4%;
-    /* top: 100px;
-    right: 100px;  */
+    top: 4%;
+    right: 3%;
     width: 20px;
     height: 20px;
     font-size: 16px;
-    line-height: 1; 
+    line-height: 2; 
     background-color: transparent;
     border: none;
     outline: none; 
     color: black;
     padding: 0;
+    font-family: 'Syne';
 }
 
 .fa-arrow-left {
@@ -402,6 +410,9 @@ label[for="image"] {
 	text-align: center;
 	border-radius: 60px;
     /* width: 20%; */
+    font-family: 'Syne';
+    /* font-weight: 700; */
+    border-radius: 60px;
 }
 
 .submit-button-active {
@@ -409,15 +420,7 @@ label[for="image"] {
     color: white;
 }
 
-#addPhotoButton{
-    border: none;
-    padding: 10px 30px;
-    width: auto;
-    margin: 0 auto;
-    display: block;
-    color: white;
-    background-color: #1D6154;
-}
+
 
 /*a garder à la fin pour cacher les éléments*/
 .hidden {

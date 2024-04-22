@@ -221,39 +221,64 @@ formAddProject.addEventListener("submit", function(e) {
     });
     
     
+// image.addEventListener('change', function(event) {
+//     const file = event.target.files[0]
+//     const imagePreview = document.querySelector('.image-preview')
+//     if(file) {
+//         if (file.size > 4 * 1024 * 1024) {
+//             errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
+//             console.log("La taille de l'image ne doit pas dépasser 4 Mo.");
+//             submitButtonModal2.disabled = true;
+//             // imagePreview.src = "";
+//             // imagePreview.classList.add('hidden');
+//             submitButtonModal2.disabled = true;
+//         } else {
+//             const fileReader = new FileReader()
+//             fileReader.onload = function(e) {
+//                 imagePreview.src = e.target.result
+//                 imagePreview.classList.remove('hidden')
+//                 document.getElementById('ajouter-photo').classList.add('hidden');
+//                 document.querySelector('.p-modal2').classList.add('hidden'); 
+//                 document.querySelector('.fa-mountain-sun').classList.add('hidden');
+//                 // submitButtonModal2.disabled = false;
+//                 checkFieldValidity();
+//             }
+//             fileReader.readAsDataURL(file)
+//         }
+//     } else {
+//         imagePreview.src = "";
+//         imagePreview.classList.add('hidden');
+//         document.getElementById('ajouter-photo').classList.remove('hidden');
+//         document.querySelector('.p-modal2').classList.remove('hidden');
+//         submitButtonModal2.disabled = true;
+//         checkFieldValidity();
+//     }
+// });    
+
 image.addEventListener('change', function(event) {
     const file = event.target.files[0]
     const imagePreview = document.querySelector('.image-preview')
-    if(file) {
-        if (file.size > 4 * 1024 * 1024) {
-            errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
-            console.log("La taille de l'image ne doit pas dépasser 4 Mo.");
-            submitButtonModal2.disabled = true;
-            imagePreview.src = "";
-            imagePreview.classList.add('hidden');
-            submitButtonModal2.disabled = true;
-        } else {
-            const fileReader = new FileReader()
-            fileReader.onload = function(e) {
-                imagePreview.src = e.target.result
-                imagePreview.classList.remove('hidden')
-                document.getElementById('ajouter-photo').classList.add('hidden');
-                document.querySelector('.p-modal2').classList.add('hidden'); 
-                document.querySelector('.fa-mountain-sun').classList.add('hidden');
-                // submitButtonModal2.disabled = false;
-                checkFieldValidity();
-            }
-            fileReader.readAsDataURL(file)
+    // if(file.size < 4 * 1024 * 1024) {
+        if(file) {
+        const fileReader = new FileReader()
+        fileReader.onload = function(e) {
+            imagePreview.src = e.target.result
+            imagePreview.classList.remove('hidden')
+            document.getElementById('ajouter-photo').classList.add('hidden');
+            document.querySelector('.p-modal2').classList.add('hidden'); 
+            document.querySelector('.fa-mountain-sun').classList.add('hidden');
         }
+        fileReader.readAsDataURL(file)
     } else {
+        errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
+        submitButtonModal2.disabled = true;
+        // checkFieldValidity();
         imagePreview.src = "";
         imagePreview.classList.add('hidden');
         document.getElementById('ajouter-photo').classList.remove('hidden');
         document.querySelector('.p-modal2').classList.remove('hidden');
-        submitButtonModal2.disabled = true;
-        checkFieldValidity();
     }
-});    
+}) 
 
 document.querySelector('.fa-arrow-left').addEventListener('click', function(event) {
     // modeEdition(event)
