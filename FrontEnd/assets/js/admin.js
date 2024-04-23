@@ -23,7 +23,6 @@ function modeEdition(e) {
 if (token) {
     adminBar.innerHTML = `<i class="fa-regular fa-pen-to-square"></i><p class="p-mode-edition">Mode edition</p>`
     galleryEdit.innerHTML = `<i class="fa-regular fa-pen-to-square"></i><p class="gallery-mode-edition">modifier</p>`
-    // portfolio.innerHTML = `<p class="projets-mode-edition">Mes projets</p><i class="fa-regular fa-pen-to-square"></i><p id="#modal" class="p-mode-edition">modifier</p>`
     projetsBar.classList.add("logged-in")
     logoutLink.innerHTML = `<a href="#" id="logout">logout</a>`
     let logout = document.getElementById('logout')
@@ -121,30 +120,7 @@ const allowedTypes = ["image/jpeg", "image/png"];
 const maxSize = 4 * 1024 * 1024; // 4 MB
 
 function checkFieldValidity() {
-    // debugger
-    if (!inputImage.files[0]) {
-        errorMsgImage.innerText = "Veuillez télécharger une image";
-        // errorMsgImage.innerText = "";
-    } else if (!["image/jpeg", "image/png"].includes(inputImage.files[0].type)) {
-        errorMsgImage.innerText = "Veuillez sélectionner une image au format jpg ou png.";
-    } else if (inputImage.files[0].size > 4 * 1024 * 1024) {
-        errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
-    }
-    if (inputTitle.value === "") {
-        errorMsgTitle.innerText = "Le champ titre ne doit pas etre vide"
-        // errorMsgTitle.innerText = "";
-    } else if (titleRegex.test(title.value)===false){
-        errorMsgTitle.innerText = "Le titre n'est pas valide"
-    }
-    if (inputCategory.value === "") {
-        errorMsgCategory.innerText = "Veuillez choisir une catégorie"
-        // errorMsgCategory.innerText = ""; // Reset error msg
-    } else {
-        errorMsgCategory.innerText = ""; // Reset error msg
-        // errorMsgImage.innerText = "";
-        // errorMsgTitle.innerText = "";
-    }
-    if(inputTitle.value !== '' && inputImage.files.length > 0 && inputCategory.value !== '') {
+    if(inputTitle.value !== '' && inputImage.files[0].size < 4 * 1024 * 1024 && inputCategory.value !== '') {
         submitButtonModal2.disabled = false
         submitButtonModal2.style.backgroundColor = "#1D6154"
     } else {
@@ -153,9 +129,39 @@ function checkFieldValidity() {
     }
 }
 
-inputTitle.addEventListener('input', checkFieldValidity)
-inputImage.addEventListener('input', checkFieldValidity)
-inputCategory.addEventListener('change', checkFieldValidity)
+
+inputTitle.addEventListener('input', function(event){
+    if (inputTitle.value === "") {
+        errorMsgTitle.innerText = "Le champ titre ne doit pas etre vide"
+    } else if (titleRegex.test(inputTitle.value)===false){
+        errorMsgTitle.innerText = "Le titre n'est pas valide"
+    }
+    checkFieldValidity()
+})
+
+
+inputImage.addEventListener('input', function(event){
+    if (!inputImage.files[0]) {
+        errorMsgImage.innerText = "Veuillez télécharger une image";
+    } else if (!["image/jpeg", "image/png"].includes(inputImage.files[0].type)) {
+        errorMsgImage.innerText = "Veuillez sélectionner une image au format jpg ou png.";
+    } else if (inputImage.files[0].size > 4 * 1024 * 1024) {
+        errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
+    }
+    // submitButtonModal2.disabled = true
+    // submitButtonModal2.style.backgroundColor = "#A7A7A7"
+    checkFieldValidity()
+})
+
+
+inputCategory.addEventListener('change', function(event){
+    if (inputCategory.value === "") {
+        errorMsgCategory.innerText = "Veuillez choisir une catégorie"
+    } else {
+        errorMsgCategory.innerText = ""; // Reset error msg
+    }
+    checkFieldValidity()
+})
 
 formAddProject.addEventListener("submit", function(e) {
     e.preventDefault(); 
@@ -163,31 +169,7 @@ formAddProject.addEventListener("submit", function(e) {
     errorMsgImage.innerText = "";
     errorMsgTitle.innerText = "";
     errorMsgCategory.innerText = "";
-    //gérer les champs du formulaire pour savoir s'ils sont remplis
-    // // Verify image type + size 
-    // if (!inputImage.files[0]) {
-    //     errorMsgImage.innerText = "Veuillez télécharger une image";
-    // } else if (!["image/jpeg", "image/png"].includes(inputImage.files[0].type)) { //if image type is not included in allowedTypes
-    //     errorMsgImage.innerText = "Veuillez sélectionner une image au format jpg ou png.";
-    // } else if (inputImage.files[0].size > 4 * 1024 * 1024) {
-    //     errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
-    // } 
-    // if (inputTitle.value === "") {
-    //     errorMsgTitle.innerText = "Le champ titre ne doit pas etre vide"
-    // } else if (titleRegex.test(title.value)===false) {
-    //     errorMsgTitle.innerText = "Le titre n'est pas valide"
-    // }
-    // if (inputCategory.value === "") {  
-    //     errorMsgCategory.innerText = "Veuillez choisir une catégorie"
-    // // } else {
-    //     errorMsgCategory.innerText = ""; // Reset error msg
-    //     // document.querySelector('.submit-button-modal2').classList.add('submit-button-active');
-    // }
-    //faire l'appel API
-    // }
     if (inputImage.files[0] !== "" && inputTitle.value !== "" && inputCategory.value !== "") { 
-        // formAddProject.classList.add('submit-button-active');
-        // document.querySelector('.submit-button-modal2').classList.add('submit-button-active');
         const formData = new FormData
         formData.append('title', inputTitle.value)
         formData.append('image', inputImage.files[0])
@@ -219,47 +201,22 @@ formAddProject.addEventListener("submit", function(e) {
         })
     }
     });
-    
-    
-// image.addEventListener('change', function(event) {
-//     const file = event.target.files[0]
-//     const imagePreview = document.querySelector('.image-preview')
-//     if(file) {
-//         if (file.size > 4 * 1024 * 1024) {
-//             errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
-//             console.log("La taille de l'image ne doit pas dépasser 4 Mo.");
-//             submitButtonModal2.disabled = true;
-//             // imagePreview.src = "";
-//             // imagePreview.classList.add('hidden');
-//             submitButtonModal2.disabled = true;
-//         } else {
-//             const fileReader = new FileReader()
-//             fileReader.onload = function(e) {
-//                 imagePreview.src = e.target.result
-//                 imagePreview.classList.remove('hidden')
-//                 document.getElementById('ajouter-photo').classList.add('hidden');
-//                 document.querySelector('.p-modal2').classList.add('hidden'); 
-//                 document.querySelector('.fa-mountain-sun').classList.add('hidden');
-//                 // submitButtonModal2.disabled = false;
-//                 checkFieldValidity();
-//             }
-//             fileReader.readAsDataURL(file)
-//         }
-//     } else {
-//         imagePreview.src = "";
-//         imagePreview.classList.add('hidden');
-//         document.getElementById('ajouter-photo').classList.remove('hidden');
-//         document.querySelector('.p-modal2').classList.remove('hidden');
-//         submitButtonModal2.disabled = true;
-//         checkFieldValidity();
-//     }
-// });    
 
-image.addEventListener('change', function(event) {
+
+inputImage.addEventListener('change', function(event) {
     const file = event.target.files[0]
     const imagePreview = document.querySelector('.image-preview')
-    // if(file.size < 4 * 1024 * 1024) {
-        if(file) {
+    if (!inputImage.files[0]) {
+        errorMsgImage.innerText = "Veuillez télécharger une image";
+    } else if (!["image/jpeg", "image/png"].includes(inputImage.files[0].type)) {
+        errorMsgImage.innerText = "Veuillez sélectionner une image au format jpg ou png.";
+    } else if (inputImage.files[0].size > 4 * 1024 * 1024) {
+        errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
+    }else{
+        errorMsgImage.innerText =""
+    }
+    // debugger
+    if(file && inputImage.files[0].size < 4 * 1024 * 1024) {
         const fileReader = new FileReader()
         fileReader.onload = function(e) {
             imagePreview.src = e.target.result
@@ -270,15 +227,12 @@ image.addEventListener('change', function(event) {
         }
         fileReader.readAsDataURL(file)
     } else {
-        // errorMsgImage.innerText = "La taille de l'image ne doit pas dépasser 4 Mo.";
-        // submitButtonModal2.disabled = true;
-        // checkFieldValidity();
         imagePreview.src = "";
         imagePreview.classList.add('hidden');
         document.getElementById('ajouter-photo').classList.remove('hidden');
         document.querySelector('.p-modal2').classList.remove('hidden');
     }
-}) 
+})
 
 document.querySelector('.fa-arrow-left').addEventListener('click', function(event) {
     // modeEdition(event)
